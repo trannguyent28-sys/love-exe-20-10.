@@ -187,12 +187,15 @@ async function playMusic() {
 
 playMusic();
 
-document.addEventListener("pointerdown", () => {
-  if (!soundOn) playMusic();
-}, { once: true });
 
-document.addEventListener("touchmove", () => {
-  if (!soundOn) playMusic();
+bgMusic.autoplay = true;
+bgMusic.muted = false;
+bgMusic.load();
+
+playMusic();
+
+document.addEventListener("click", () => {
+  if (bgMusic.paused) playMusic();
 }, { once: true });
 
 $("#sound").addEventListener("click", async () => {
