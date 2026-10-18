@@ -174,14 +174,33 @@ $("#again").addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
 const bgMusic = $("#bgMusic");
 let soundOn = false;
 
+async function playMusic() {
+  try {
+    await bgMusic.play();
+    soundOn = true;
+    $("#sound").textContent = "♫✓";
+  } catch (e) {
+    soundOn = false;
+    $("#sound").textContent = "♫";
+  }
+}
+
+playMusic();
+
+document.addEventListener("pointerdown", () => {
+  if (!soundOn) playMusic();
+}, { once: true });
+
+document.addEventListener("touchmove", () => {
+  if (!soundOn) playMusic();
+}, { once: true });
+
 $("#sound").addEventListener("click", async () => {
-  if (!soundOn) {
-    try {
-      await bgMusic.play();
-      soundOn = true;
-      $("#sound").textContent = "♫✓";
+  if (bgMusic.paused) {
+    await playMusic();
+    if (soundOn) {
       toast("Nhạc dành cho Zii đang phát 🎵");
-    } catch (e) {
+    } else {
       toast("Không phát được nhạc. Kiểm tra file nhac-zii.mp3 nhé!");
     }
   } else {
@@ -191,6 +210,8 @@ $("#sound").addEventListener("click", async () => {
     toast("Đã tạm dừng nhạc");
   }
 });
+
+
 let touchX=0,touchY=0;addEventListener("pointerdown",e=>{touchX=e.clientX;touchY=e.clientY});addEventListener("pointerup",e=>{if(Math.hypot(e.clientX-touchX,e.clientY-touchY)<8&&Math.random()>.7)burst(e.clientX,e.clientY,5)});
 </script>
 </body>
