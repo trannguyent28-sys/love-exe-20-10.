@@ -116,17 +116,27 @@ footer strong{color:#ffb4dc}
       <p>Không phải phép thuật đâu… chỉ là có người đã dành chút thời gian để làm điều này cho Zii. 💗</p>
       <div class="envelope" id="envelope">💌</div>
       <button class="btn primary" id="openLetter">Mở lá thư của Thanh Nguyen</button>
-      <div class="letter" id="letter">Gửi Gia Tue (Zii), 💗
+      <div class="letter" id="letter">Gửi Gia Tue(vk yêu của anh)🩷
 
-Chúc Zii một ngày 20/10 thật dịu dàng và nhiều niềm vui nha.
+Chúc em ngày 20/10 thật dịu dàng và nhiều niềm vui nha.
 
-Mong Zii luôn có thật nhiều lý do để mỉm cười, có người lắng nghe khi cần tâm sự, có đủ can đảm để theo đuổi điều mình thích, và luôn nhớ rằng bản thân rất đáng quý.
+Mong em luôn có thật nhiều lý do để mỉm cười, có anh lắng nghe khi cần tâm sự, có đủ can đảm để theo đuổi điều mình thích, và luôn nhớ rằng bản thân rất đáng quý.
 
-Thanh Nguyen không biết viết những lời hoa mỹ nhất, nên chỉ muốn gửi Zii một điều thật lòng: mong những điều tốt đẹp sẽ tìm đến Zii, không chỉ hôm nay mà cả những ngày bình thường sau này nữa.
+Thật ra anh có nhiều điều muốn nói với em lắm, mà mỗi lần muốn nói thì anh lại chẳng biết bắt đầu từ đâu. Anh biết thời gian qua anh đã nhiều lần làm em buồn, có những lúc anh vô tâm, có những chuyện đáng lẽ anh nên hiểu cho em nhưng anh lại không làm được. Anh xin lỗi em nhiều.
 
-Nếu trang web nhỏ này khiến Zii cười dù chỉ một chút, vậy là món quà đã hoàn thành nhiệm vụ rồi. 🌷
+Anh biết đôi khi em buồn không phải vì chuyện gì quá lớn, mà là do những điều nhỏ nhặt anh làm khiến em suy nghĩ. Có thể lúc đó anh không nhận ra, nhưng sau này nghĩ lại anh cũng thấy mình chưa tốt với em như anh nên làm. Anh không muốn người anh thương lại phải buồn nhiều vì anh như vậy đâu.
+        
+Anh không giỏi nói mấy lời ngọt ngào, cũng không biết làm sao để lúc nào em cũng vui.Anh cũng không dám hứa sẽ không làm em buồn nữa. Nhưng anh thật sự không muốn vì sự vô tâm của mình mà khiến em cảm thấy không được quan tâm. Anh sẽ cố gắng sửa đổi những điều chưa tốt của mình, quan tâm em nhiều hơn và học cách hiểu em hơn. Anh biết nói thì dễ, nên anh sẽ cố gắng để em thấy được điều đó qua cách anh đối xử với em.
 
-Happy 20/10, Zii.
+Nhân ngày 20/10, anh chỉ mong em luôn vui vẻ, có chuyện gì buồn cũng đừng giữ trong lòng một mình nha. Nếu anh làm gì khiến em buồn thì hãy nói anh biết, anh sẽ lắng nghe chứ không muốn em cứ phải buồn một mình đâu.
+
+Cuối cùng thì anh xin lỗi em vì những lần anh làm em buồn nha. Anh không dám nói mình sẽ hoàn hảo hay sẽ không bao giờ mắc lỗi nữa, nhưng anh sẽ cố gắng để trở thành một người yêu tốt hơn đối với em.
+        
+Chúc vk yêu của anh 20/10 thật vui vẻ nhaaa 💗 Mong là những ngày sau này anh có thể làm em cười nhiều hơn là làm em buồn. Cảm ơn em vì đã ở bên anh đến bây giờ.
+
+Thương vk nhiều 🫶🏻❤️
+        
+Happy 20/10
 Một vũ trụ nhỏ, gửi đến riêng Zii. 💫
 
 — Thanh Nguyen</div>
@@ -141,7 +151,8 @@ Một vũ trụ nhỏ, gửi đến riêng Zii. 💫
   </section>
   <footer><strong>LOVE.exe</strong><br>compiled with care by Thanh Nguyen<br><span>For Gia Tue (Zii) · 20/10/2026</span></footer>
 </main>
-<button id="sound" aria-label="Bật hoặc tắt âm thanh" title="Bật/tắt âm thanh">♫</button>
+<audio id="bgMusic" src="nhac-zii.mp3" preload="none" loop></audio>
+<button id="sound" aria-label="Phát hoặc tạm dừng nhạc" title="Phát/tạm dừng nhạc">♫</button>
 <div class="toast" id="toast">Một lời nhắn nhỏ dành cho Zii 💗</div>
 <script>
 const $=s=>document.querySelector(s);
@@ -162,7 +173,8 @@ $("#openLetter").addEventListener("click",()=>{$("#envelope").classList.add("ope
 $("#finale").addEventListener("click",()=>{floaties(70);for(let i=0;i<5;i++)setTimeout(()=>burst(Math.random()*innerWidth,innerHeight*(.3+Math.random()*.5),22),i*260);toast("Một vũ trụ trái tim dành riêng cho Zii 💖")});
 $("#again").addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
 let audioCtx=null,osc=null,gain=null,soundOn=false;
-$("#sound").addEventListener("click",()=>{if(!soundOn){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();osc=audioCtx.createOscillator();gain=audioCtx.createGain();osc.type="sine";osc.frequency.value=432;gain.gain.value=.018;osc.connect(gain);gain.connect(audioCtx.destination);osc.start();soundOn=true;$("#sound").textContent="♫✓";toast("Âm thanh nền đã bật");}catch(e){toast("Trình duyệt chưa hỗ trợ âm thanh")}}else{if(osc)osc.stop();if(audioCtx)audioCtx.close();soundOn=false;$("#sound").textContent="♫";toast("Đã tắt âm thanh")}}); 
+<audio id="bgMusic" src="nhac-zii.mp3" preload="none" loop></audio>
+<button id="sound" aria-label="Phát hoặc tạm dừng nhạc" title="Phát/tạm dừng nhạc">♫</button>
 let touchX=0,touchY=0;addEventListener("pointerdown",e=>{touchX=e.clientX;touchY=e.clientY});addEventListener("pointerup",e=>{if(Math.hypot(e.clientX-touchX,e.clientY-touchY)<8&&Math.random()>.7)burst(e.clientX,e.clientY,5)});
 </script>
 </body>
