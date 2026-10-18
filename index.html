@@ -172,9 +172,26 @@ document.querySelectorAll(".memory").forEach(b=>b.addEventListener("click",()=>{
 $("#openLetter").addEventListener("click",()=>{$("#envelope").classList.add("open");$("#letter").classList.add("show");$("#openLetter").textContent="Lá thư đã mở 💗";floaties(20);setTimeout(()=>$("#letter").scrollIntoView({behavior:"smooth",block:"center"}),250)});
 $("#finale").addEventListener("click",()=>{floaties(70);for(let i=0;i<5;i++)setTimeout(()=>burst(Math.random()*innerWidth,innerHeight*(.3+Math.random()*.5),22),i*260);toast("Một vũ trụ trái tim dành riêng cho Zii 💖")});
 $("#again").addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
-let audioCtx=null,osc=null,gain=null,soundOn=false;
-<audio id="bgMusic" src="nhac-zii.mp3" preload="none" loop></audio>
-<button id="sound" aria-label="Phát hoặc tạm dừng nhạc" title="Phát/tạm dừng nhạc">♫</button>
+const bgMusic = $("#bgMusic");
+let soundOn = false;
+
+$("#sound").addEventListener("click", async () => {
+  if (!soundOn) {
+    try {
+      await bgMusic.play();
+      soundOn = true;
+      $("#sound").textContent = "♫✓";
+      toast("Nhạc dành cho Zii đang phát 🎵");
+    } catch (e) {
+      toast("Không phát được nhạc. Kiểm tra file nhac-zii.mp3 nhé!");
+    }
+  } else {
+    bgMusic.pause();
+    soundOn = false;
+    $("#sound").textContent = "♫";
+    toast("Đã tạm dừng nhạc");
+  }
+});
 let touchX=0,touchY=0;addEventListener("pointerdown",e=>{touchX=e.clientX;touchY=e.clientY});addEventListener("pointerup",e=>{if(Math.hypot(e.clientX-touchX,e.clientY-touchY)<8&&Math.random()>.7)burst(e.clientX,e.clientY,5)});
 </script>
 </body>
