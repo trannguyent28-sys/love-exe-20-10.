@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100923">
+<title>LOVE.exe — dành riêng cho Zii</title>
+<style>
+:root{--pink:#ff8acb;--hot:#ff4fa5;--lav:#c6a4ff;--ink:#100923;--white:#fff7ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--white);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;background:radial-gradient(ellipse at 50% 20%,#39205f 0%,#1b1038 42%,#090617 100%);background-attachment:fixed}
+button{font:inherit;cursor:pointer}
+#sky,.nebula,.stars{position:fixed;inset:0;pointer-events:none}
+#sky{z-index:0;width:100%;height:100%}
+.nebula{z-index:0;background:radial-gradient(circle at 15% 70%,#ff4fa51b,transparent 28%),radial-gradient(circle at 85% 25%,#8b5cff25,transparent 30%);animation:nebula 12s ease-in-out infinite alternate}
+.stars{z-index:0;background-image:radial-gradient(1px 1px at 20px 30px,#fff 90%,transparent),radial-gradient(1px 1px at 80px 110px,#ffb8e2 90%,transparent),radial-gradient(2px 2px at 140px 60px,#c9b4ff 90%,transparent);background-size:180px 150px;opacity:.5;animation:twinkle 4s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.95;filter:brightness(1.5)}}@keyframes nebula{to{transform:scale(1.12) rotate(3deg);filter:hue-rotate(18deg)}}
+main{position:relative;z-index:1;width:min(760px,100%);margin:auto;padding:24px 18px 70px}
+.topline{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#d7c4ffb8}
+.pill{border:1px solid #d8baff45;border-radius:999px;padding:8px 11px;background:#ffffff08;backdrop-filter:blur(10px)}
+.hero{min-height:83svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 0 40px}
+.eyebrow{color:#f8b6e0;letter-spacing:.28em;text-transform:uppercase;font-size:11px;margin:18px 0}
+h1{font-size:clamp(42px,11vw,76px);line-height:.98;letter-spacing:-.06em;margin:6px 0 14px;text-shadow:0 0 28px #ff5eb577,0 0 65px #a77bff55}
+h1 span{color:#ff9bd5}
+.subtitle{color:#e3d7f8;max-width:430px;line-height:1.7;font-size:15px;margin:0 auto}
+.heart-orbit{width:190px;height:190px;position:relative;display:grid;place-items:center;margin:18px auto 16px}
+.orbit{position:absolute;inset:9px;border:1px solid #f6b6ff52;border-radius:50%;animation:spin 14s linear infinite}
+.orbit:before,.orbit:after{content:"✦";position:absolute;color:#ffd6f0;text-shadow:0 0 14px #ff8acb}
+.orbit:before{top:9px;left:23px}.orbit:after{bottom:16px;right:18px}
+.orbit.two{inset:-3px;border-style:dashed;opacity:.55;animation:spin 24s linear infinite reverse}
+.big-heart{border:0;background:transparent;font-size:92px;line-height:1;filter:drop-shadow(0 0 12px #ff69b7) drop-shadow(0 0 32px #a86bff);animation:heartbeat 1.7s ease-in-out infinite;transition:transform .2s}
+.big-heart:active{transform:scale(.82)}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.08)}23%{transform:scale(1)}35%{transform:scale(1.05)}}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:25px}
+.btn{border:1px solid #f7c6e977;color:#fff7ff;border-radius:999px;padding:13px 18px;background:#ffffff0c;backdrop-filter:blur(12px);box-shadow:0 8px 28px #0002;transition:transform .2s,background .2s}
+.btn:active{transform:scale(.96)}.btn.primary{background:linear-gradient(110deg,#ff5cab,#a76cff);border:0;color:#210b31;font-weight:800;box-shadow:0 0 28px #ff60b844}
+.scrollhint{margin-top:30px;color:#b9a9d6;font-size:11px;letter-spacing:.16em}
+.section{margin:25px 0;padding:25px 20px;border:1px solid #e5caff2c;border-radius:25px;background:linear-gradient(145deg,#ffffff0d,#ffffff04);box-shadow:0 18px 60px #0002;backdrop-filter:blur(12px)}
+.kicker{font-size:10px;letter-spacing:.25em;color:#ffabd9;text-transform:uppercase}
+h2{font-size:clamp(25px,7vw,38px);line-height:1.1;margin:10px 0 14px;letter-spacing:-.04em}
+p{line-height:1.8;color:#e6dbf4;font-size:14px}
+.terminal{background:#090715b8;border:1px solid #bfa0ff35;border-radius:16px;padding:17px;font:12px/1.9 ui-monospace,SFMono-Regular,monospace;color:#d9c7ff;overflow:hidden}
+.green{color:#9fffd5}.pink{color:#ff9bd5}
+.type-line{min-height:28px}
+.meter{height:7px;border-radius:9px;background:#ffffff16;overflow:hidden;margin:14px 0 5px}.meter>i{display:block;width:100%;height:100%;background:linear-gradient(90deg,#ff5cab,#c7a0ff);transform-origin:left;animation:load 2.5s ease-out both}
+@keyframes load{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.memories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.memory{min-height:130px;border:1px solid #e6c8ff30;border-radius:18px;background:#ffffff08;padding:15px;text-align:left;color:var(--white);transition:.25s}
+.memory:hover{transform:translateY(-3px);background:#ffffff12}
+.memory b{display:block;font-size:23px;margin-bottom:8px}.memory small{display:block;color:#cdbce5;line-height:1.55;font-size:12px}
+.letter-wrap{text-align:center;padding:8px 0}
+.envelope{width:150px;height:105px;margin:22px auto 18px;position:relative;border:1px solid #ffc5e5a0;border-radius:10px;background:linear-gradient(135deg,#ff9bce,#ad83ff);box-shadow:0 0 35px #ff6eb733;display:grid;place-items:center;font-size:39px;transition:.4s}
+.envelope:before{content:"";position:absolute;top:-1px;left:0;right:0;margin:auto;width:0;height:0;border-left:74px solid transparent;border-right:74px solid transparent;border-top:55px solid #ffe0f1;filter:drop-shadow(0 2px 1px #b46ba9)}
+.envelope.open{transform:translateY(-8px) rotate(-2deg);box-shadow:0 0 60px #ff6eb766}
+.letter{display:none;text-align:left;white-space:pre-line;border-radius:18px;padding:20px;background:#fff5fb;color:#492349;line-height:1.9;font-size:14px;box-shadow:0 15px 45px #0003}
+.letter.show{display:block;animation:rise .7s ease both}@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.wish{text-align:center;padding:20px 0 10px}
+.bigline{font-size:clamp(28px,8vw,48px);font-weight:900;line-height:1.1;letter-spacing:-.05em;background:linear-gradient(100deg,#fff,#ff9fd5,#c7a7ff);color:transparent;background-clip:text}
+footer{text-align:center;color:#b5a4d0;font-size:11px;line-height:1.9;padding:30px 10px}
+footer strong{color:#ffb4dc}
+.floating{position:fixed;z-index:5;pointer-events:none;animation:floatUp 3.4s ease-out forwards;filter:drop-shadow(0 0 8px #ff6dbb)}
+@keyframes floatUp{0%{transform:translateY(0) scale(.5) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh) scale(1.35) rotate(35deg);opacity:0}}
+.burst{position:fixed;z-index:6;pointer-events:none;font-size:18px;animation:burst 1.2s ease-out forwards}
+@keyframes burst{from{opacity:1;transform:translate(0,0) scale(.5)}to{opacity:0;transform:translate(var(--x),var(--y)) scale(1.5)}}
+.toast{position:fixed;z-index:10;bottom:20px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;background:#28133e;border:1px solid #ffb4df70;border-radius:999px;padding:12px 17px;font-size:12px;transition:.3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#sound{position:fixed;right:14px;bottom:14px;z-index:8;border:1px solid #e5caff55;background:#1a0d30dd;color:white;border-radius:50%;width:45px;height:45px;box-shadow:0 0 20px #a87cff33}
+@media(min-width:650px){main{padding-top:35px}.section{padding:32px}.memories{grid-template-columns:repeat(4,minmax(0,1fr))}.memory{min-height:160px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas><div class="nebula"></div><div class="stars"></div>
+<main>
+  <div class="topline"><span class="pill">✦ PRIVATE UNIVERSE</span><span class="pill">20 · 10 · 2026</span></div>
+  <section class="hero">
+    <div class="eyebrow">A tiny universe, made for one person</div>
+    <div class="heart-orbit"><div class="orbit"></div><div class="orbit two"></div><button class="big-heart" id="heart" aria-label="Chạm vào trái tim">💗</button></div>
+    <h1>LOVE<span>.exe</span></h1>
+    <p class="subtitle">Một tín hiệu bé xíu từ vũ trụ của <b>Thanh Nguyen</b>, gửi riêng đến <b>Gia Tue (Zii)</b>.</p>
+    <div class="actions"><button class="btn primary" id="start">✦ Khởi chạy bất ngờ</button><button class="btn" id="spark">Rải phép màu ✨</button></div>
+    <div class="scrollhint">KÉO XUỐNG ĐỂ MỞ KHÓA BÍ MẬT ↓</div>
+  </section>
+
+  <section class="section" id="system">
+    <div class="kicker">01 / connection established</div>
+    <h2>Đang kết nối đến<br><span class="pink">vũ trụ của Zii…</span></h2>
+    <div class="terminal">
+      <div><span class="green">[OK]</span> heart_module initialized</div>
+      <div><span class="green">[OK]</span> recipient = <span class="pink">"Gia Tue (Zii)"</span></div>
+      <div><span class="green">[OK]</span> sender = <span class="pink">"Thanh Nguyen"</span></div>
+      <div class="type-line" id="typing">&gt; waiting for a little smile<span class="pink">_</span></div>
+      <div class="meter"><i></i></div>
+      <div style="color:#a99ac7">STATUS: <span class="green">FEELINGS ONLINE ♥</span></div>
+    </div>
+    <p>Trong một vũ trụ có hàng tỷ vì sao, trang này được tạo ra chỉ để nhắc một người rằng: hôm nay người ấy xứng đáng được yêu thương thật nhiều.</p>
+  </section>
+
+  <section class="section">
+    <div class="kicker">02 / little things</div>
+    <h2>Chạm vào từng ngôi sao ✨</h2>
+    <p>Mỗi ô là một lời nhắn nhỏ. Chạm thử nha.</p>
+    <div class="memories">
+      <button class="memory" data-msg="Mong Zii hôm nay cười thật nhiều, ngày mai cũng vậy, và cả những ngày sau nữa. 🌷"><b>🌷</b><span>Điều ước</span><small>Mở một lời chúc</small></button>
+      <button class="memory" data-msg="Nếu hôm nay hơi mệt, nhớ nghỉ ngơi một chút nha. Zii không cần phải hoàn hảo mới xứng đáng được thương. ☁️"><b>☁️</b><span>Ôm từ xa</span><small>Một chiếc ôm tinh thần</small></button>
+      <button class="memory" data-msg="Có những món quà không cần đắt tiền; chỉ cần người nhận mỉm cười khi mở ra là đủ đặc biệt rồi. 💞"><b>🪐</b><span>Bí mật</span><small>Một điều muốn nói</small></button>
+      <button class="memory" data-msg="Mã này chỉ có một phiên bản: được làm riêng cho Gia Tue (Zii), bởi Thanh Nguyen. Không cần giống bất kỳ ai. 💌"><b>💌</b><span>Dành riêng</span><small>Thông điệp bí mật</small></button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">03 / unlock the letter</div>
+    <div class="letter-wrap">
+      <h2>Bức thư đang chờ Zii</h2>
+      <p>Không phải phép thuật đâu… chỉ là có người đã dành chút thời gian để làm điều này cho Zii. 💗</p>
+      <div class="envelope" id="envelope">💌</div>
+      <button class="btn primary" id="openLetter">Mở lá thư của Thanh Nguyen</button>
+      <div class="letter" id="letter">Gửi Gia Tue (Zii), 💗
+
+Chúc Zii một ngày 20/10 thật dịu dàng và nhiều niềm vui nha.
+
+Mong Zii luôn có thật nhiều lý do để mỉm cười, có người lắng nghe khi cần tâm sự, có đủ can đảm để theo đuổi điều mình thích, và luôn nhớ rằng bản thân rất đáng quý.
+
+Thanh Nguyen không biết viết những lời hoa mỹ nhất, nên chỉ muốn gửi Zii một điều thật lòng: mong những điều tốt đẹp sẽ tìm đến Zii, không chỉ hôm nay mà cả những ngày bình thường sau này nữa.
+
+Nếu trang web nhỏ này khiến Zii cười dù chỉ một chút, vậy là món quà đã hoàn thành nhiệm vụ rồi. 🌷
+
+Happy 20/10, Zii.
+Một vũ trụ nhỏ, gửi đến riêng Zii. 💫
+
+— Thanh Nguyen</div>
+    </div>
+  </section>
+
+  <section class="section wish">
+    <div class="kicker">04 / final transmission</div>
+    <div class="bigline">Zii là một<br>đốm sáng đặc biệt.</div>
+    <p>Chúc Zii được yêu thương theo cách khiến trái tim thấy bình yên. Mong ngày hôm nay có hoa, có niềm vui, có những điều bất ngờ nhỏ — và có thật nhiều nụ cười. 🌙</p>
+    <div class="actions"><button class="btn primary" id="finale">Kích hoạt vũ trụ trái tim 💖</button><button class="btn" id="again">Quay lại từ đầu ↟</button></div>
+  </section>
+  <footer><strong>LOVE.exe</strong><br>compiled with care by Thanh Nguyen<br><span>For Gia Tue (Zii) · 20/10/2026</span></footer>
+</main>
+<button id="sound" aria-label="Bật hoặc tắt âm thanh" title="Bật/tắt âm thanh">♫</button>
+<div class="toast" id="toast">Một lời nhắn nhỏ dành cho Zii 💗</div>
+<script>
+const $=s=>document.querySelector(s);
+const canvas=$("#sky"),ctx=canvas.getContext("2d");
+let w,h,stars=[],raf;
+function resize(){w=canvas.width=innerWidth*devicePixelRatio;h=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";stars=Array.from({length:Math.min(130,Math.floor(innerWidth/5))},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.7+.25,a:Math.random()*.75+.15,s:Math.random()*.007+.002}))}
+function draw(){ctx.clearRect(0,0,w,h);for(const s of stars){s.a+=Math.sin(Date.now()*s.s)*.004;ctx.globalAlpha=Math.max(.12,Math.min(1,s.a));ctx.fillStyle="#fff0ff";ctx.beginPath();ctx.arc(s.x,s.y,s.r*devicePixelRatio,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;raf=requestAnimationFrame(draw)}
+resize();draw();addEventListener("resize",resize);
+const emojis=["💗","💖","💕","✨","🌸","💫","🩷","✦","🌷"];
+function floaties(n=18){for(let i=0;i<n;i++){setTimeout(()=>{const e=document.createElement("div");e.className="floating";e.textContent=emojis[Math.floor(Math.random()*emojis.length)];e.style.left=(Math.random()*100)+"vw";e.style.bottom=(-10-Math.random()*30)+"px";e.style.fontSize=(14+Math.random()*25)+"px";e.style.animationDuration=(2.5+Math.random()*2.5)+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),5500)},i*55)}}
+function burst(x,y,n=18){for(let i=0;i<n;i++){const e=document.createElement("span");e.className="burst";e.textContent=emojis[Math.floor(Math.random()*emojis.length)];e.style.left=x+"px";e.style.top=y+"px";e.style.setProperty("--x",(Math.random()*260-130)+"px");e.style.setProperty("--y",(Math.random()*260-130)+"px");document.body.appendChild(e);setTimeout(()=>e.remove(),1300)}}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400)}
+$("#heart").addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,28);toast("Trái tim đã nhận được một cái chạm 💗")});
+$("#spark").addEventListener("click",()=>{floaties(34);toast("Phép màu đã được gửi đi ✨")});
+$("#start").addEventListener("click",()=>{floaties(24);$("#system").scrollIntoView({behavior:"smooth"});$("#typing").textContent="> surprise_protocol = activated ♥";setTimeout(()=>toast("Kết nối thành công: Thanh Nguyen → Zii"),900)});
+document.querySelectorAll(".memory").forEach(b=>b.addEventListener("click",()=>{toast(b.dataset.msg);floaties(8)}));
+$("#openLetter").addEventListener("click",()=>{$("#envelope").classList.add("open");$("#letter").classList.add("show");$("#openLetter").textContent="Lá thư đã mở 💗";floaties(20);setTimeout(()=>$("#letter").scrollIntoView({behavior:"smooth",block:"center"}),250)});
+$("#finale").addEventListener("click",()=>{floaties(70);for(let i=0;i<5;i++)setTimeout(()=>burst(Math.random()*innerWidth,innerHeight*(.3+Math.random()*.5),22),i*260);toast("Một vũ trụ trái tim dành riêng cho Zii 💖")});
+$("#again").addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
+let audioCtx=null,osc=null,gain=null,soundOn=false;
+$("#sound").addEventListener("click",()=>{if(!soundOn){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();osc=audioCtx.createOscillator();gain=audioCtx.createGain();osc.type="sine";osc.frequency.value=432;gain.gain.value=.018;osc.connect(gain);gain.connect(audioCtx.destination);osc.start();soundOn=true;$("#sound").textContent="♫✓";toast("Âm thanh nền đã bật");}catch(e){toast("Trình duyệt chưa hỗ trợ âm thanh")}}else{if(osc)osc.stop();if(audioCtx)audioCtx.close();soundOn=false;$("#sound").textContent="♫";toast("Đã tắt âm thanh")}}); 
+let touchX=0,touchY=0;addEventListener("pointerdown",e=>{touchX=e.clientX;touchY=e.clientY});addEventListener("pointerup",e=>{if(Math.hypot(e.clientX-touchX,e.clientY-touchY)<8&&Math.random()>.7)burst(e.clientX,e.clientY,5)});
+</script>
+</body>
+</html>
