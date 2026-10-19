@@ -374,6 +374,107 @@ h1 span {
 #sound{position:fixed;right:14px;bottom:14px;z-index:8;border:1px solid #e5caff55;background:#1a0d30dd;color:white;border-radius:50%;width:45px;height:45px;box-shadow:0 0 20px #a87cff33}
 @media(min-width:650px){main{padding-top:35px}.section{padding:32px}.memories{grid-template-columns:repeat(4,minmax(0,1fr))}.memory{min-height:160px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+/* ===== GALLERY ẢNH KỶ NIỆM ===== */
+.photo-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 12px 2px 20px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.photo-track::-webkit-scrollbar {
+  display: none;
+}
+
+.photo-card {
+  flex: 0 0 78%;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e5caff55;
+  border-radius: 18px;
+  background: #1a0d30;
+  color: white;
+  scroll-snap-align: center;
+  text-align: left;
+  box-shadow: 0 0 22px #a87cff22;
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+}
+
+.photo-card span {
+  display: block;
+  padding: 12px;
+  color: #f5d9ff;
+  font-size: 14px;
+}
+
+.photo-viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  background: #080312f5;
+  touch-action: none;
+}
+
+.photo-viewer.open {
+  display: flex;
+}
+
+.photo-viewer img {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 12px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.viewer-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e5caff66;
+  border-radius: 50%;
+  background: #25123c;
+  color: white;
+  font-size: 28px;
+}
+
+.viewer-hint {
+  margin-top: 18px;
+  color: #cbb8e9;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (min-width: 650px) {
+  .photo-card {
+    flex-basis: 35%;
+  }
+
+  .photo-card img {
+    height: 320px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -402,6 +503,34 @@ h1 span {
     </div>
     <p>Trong một vũ trụ có hàng tỷ vì sao, trang này được tạo ra chỉ để nhắc một người rằng: hôm nay người ấy xứng đáng được yêu thương thật nhiều.</p>
   </section>
+
+<section class="section" id="gallery">
+  <div class="kicker">02 / our memories</div>
+  <h2>Những khoảnh khắc của tụi mình 📸</h2>
+  <p>Vuốt ngang để xem ảnh, chạm vào ảnh để phóng to nha. 💗</p>
+
+  <div class="photo-track" id="photoTrack">
+    <button class="photo-card" type="button">
+      <img src="anh1.jpg" alt="Kỷ niệm 1">
+      <span>Khoảnh khắc đầu tiên ✨</span>
+    </button>
+
+    <button class="photo-card" type="button">
+      <img src="anh2.jpg" alt="Kỷ niệm 2">
+      <span>Một chút dịu dàng 🌷</span>
+    </button>
+
+    <button class="photo-card" type="button">
+      <img src="anh3.jpg" alt="Kỷ niệm 3">
+      <span>Thế giới nhỏ của tụi mình 🪐</span>
+    </button>
+
+    <button class="photo-card" type="button">
+      <img src="anh4.jpg" alt="Kỷ niệm 4">
+      <span>Gửi Zii 💌</span>
+    </button>
+  </div>
+</section>
 
   <section class="section">
     <div class="kicker">02 / little things</div>
@@ -456,6 +585,13 @@ Happy 20/10
   </section>
   <footer><strong>LOVE.exe</strong><br>compiled with care by Thanh Nguyen<br><span>For Gia Tue (Zii) · 20/10/2026</span></footer>
 </main>
+
+<div class="photo-viewer" id="photoViewer" aria-hidden="true">
+  <button class="viewer-close" id="viewerClose" type="button" aria-label="Đóng ảnh">×</button>
+  <img id="viewerImage" src="" alt="Ảnh phóng to">
+  <div class="viewer-hint">Vuốt trái/phải để đổi ảnh · Vuốt xuống để đóng</div>
+</div>
+  
 <audio id="bgMusic" src="nhac-zii.mp3" preload="none" loop></audio>
 <button id="sound" aria-label="Bật hoặc tắt nhạc" title="Bật hoặc tắt nhạc">🎵 Chạm để bật nhạc</button>
 <div class="toast" id="toast">Một lời nhắn nhỏ dành cho Zii 💗</div>
@@ -520,6 +656,65 @@ $("#sound").addEventListener("click", async () => {
   }
 });
 
+const photoCards = [...document.querySelectorAll(".photo-card img")];
+const photoViewer = document.getElementById("photoViewer");
+const viewerImage = document.getElementById("viewerImage");
+const viewerClose = document.getElementById("viewerClose");
+
+let currentPhoto = 0;
+let startX = 0;
+let startY = 0;
+
+function showPhoto(index) {
+  currentPhoto = (index + photoCards.length) % photoCards.length;
+  viewerImage.src = photoCards[currentPhoto].src;
+  viewerImage.alt = photoCards[currentPhoto].alt;
+}
+
+function closePhotoViewer() {
+  photoViewer.classList.remove("open");
+  photoViewer.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+photoCards.forEach((img, index) => {
+  img.closest(".photo-card").addEventListener("click", () => {
+    showPhoto(index);
+    photoViewer.classList.add("open");
+    photoViewer.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  });
+});
+
+viewerClose.addEventListener("click", closePhotoViewer);
+
+photoViewer.addEventListener("click", event => {
+  if (event.target === photoViewer) closePhotoViewer();
+});
+
+photoViewer.addEventListener("pointerdown", event => {
+  startX = event.clientX;
+  startY = event.clientY;
+});
+
+photoViewer.addEventListener("pointerup", event => {
+  const dx = event.clientX - startX;
+  const dy = event.clientY - startY;
+
+  if (Math.abs(dy) > Math.abs(dx) && dy > 80) {
+    closePhotoViewer();
+  } else if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+    showPhoto(currentPhoto + (dx < 0 ? 1 : -1));
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (!photoViewer.classList.contains("open")) return;
+
+  if (event.key === "Escape") closePhotoViewer();
+  if (event.key === "ArrowRight") showPhoto(currentPhoto + 1);
+  if (event.key === "ArrowLeft") showPhoto(currentPhoto - 1);
+});
 
 let touchX=0,touchY=0;addEventListener("pointerdown",e=>{touchX=e.clientX;touchY=e.clientY});addEventListener("pointerup",e=>{if(Math.hypot(e.clientX-touchX,e.clientY-touchY)<8&&Math.random()>.7)burst(e.clientX,e.clientY,5)});
 </script>
