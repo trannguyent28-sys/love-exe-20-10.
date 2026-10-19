@@ -129,6 +129,248 @@ footer strong{color:#ffb4dc}
   to{left:150%}
 }
 
+/* ===== LOVE.exe: PREMIUM ANIMATION PACK ===== */
+
+/* Nền vũ trụ chuyển động */
+body {
+  background-size: 160% 160%;
+  animation: universeBreath 16s ease-in-out infinite alternate;
+}
+
+@keyframes universeBreath {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Tiêu đề phát sáng */
+h1 {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+h1 span {
+  display: inline-block;
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 0 0 18px #ff5eb577, 0 0 38px #a77bff33;
+  }
+  to {
+    text-shadow: 0 0 30px #ff5eb5cc, 0 0 75px #a77bffaa;
+  }
+}
+
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Trái tim nhấp nháy và tỏa sáng */
+.big-heart {
+  will-change: transform, filter;
+  animation: heartPremium 1.7s ease-in-out infinite;
+}
+
+@keyframes heartPremium {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 12px #ff69b7)
+            drop-shadow(0 0 30px #a86bff);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 22px #ff69b7)
+            drop-shadow(0 0 45px #c28cff);
+  }
+}
+
+/* Nút bấm có ánh sáng lướt qua */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease,
+              background .3s ease;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -120%;
+  width: 55%;
+  height: 200%;
+  transform: rotate(25deg);
+  background: linear-gradient(
+    90deg, transparent, #ffffff70, transparent
+  );
+  transition: left .65s ease;
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  left: 150%;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px #ff8acb66;
+}
+
+.btn.primary {
+  animation: buttonGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes buttonGlow {
+  from { box-shadow: 0 0 15px #ff60b844; }
+  to { box-shadow: 0 0 32px #ff60b899; }
+}
+
+/* Các khung nội dung nổi nhẹ */
+.section {
+  position: relative;
+  overflow: hidden;
+  transition: transform .35s ease, border-color .35s ease,
+              box-shadow .35s ease;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 70%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg, transparent, #ffffff0c, transparent
+  );
+  transform: skewX(-15deg);
+  animation: sectionShimmer 8s ease-in-out infinite;
+}
+
+@keyframes sectionShimmer {
+  0%, 55% { left: -150%; }
+  100% { left: 180%; }
+}
+
+.section:hover {
+  border-color: #ff9bd566;
+  box-shadow: 0 18px 60px #ff65ba15, 0 0 25px #b56aff18;
+}
+
+/* Những ô lời nhắn */
+.memory {
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform .3s ease, background .3s ease,
+              border-color .3s ease, box-shadow .3s ease;
+}
+
+.memory:hover {
+  transform: translateY(-6px) scale(1.02);
+  background: #ffffff15;
+  border-color: #ff9bd588;
+  box-shadow: 0 10px 28px #c56bff22;
+}
+
+.memory b {
+  transition: transform .35s ease;
+}
+
+.memory:hover b {
+  transform: scale(1.18) rotate(-8deg);
+}
+
+/* Phong bì rung nhẹ */
+.envelope {
+  animation: envelopeFloat 3s ease-in-out infinite;
+}
+
+@keyframes envelopeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.envelope.open {
+  animation: envelopeOpen  .7s ease both;
+}
+
+@keyframes envelopeOpen {
+  0% { transform: translateY(0) rotate(0) scale(1); }
+  55% { transform: translateY(-12px) rotate(-5deg) scale(1.06); }
+  100% { transform: translateY(-8px) rotate(-2deg) scale(1); }
+}
+
+/* Bức thư xuất hiện mềm mại */
+.letter.show {
+  animation: letterReveal .85s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes letterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(.97);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Dòng chữ kết thúc chuyển sắc */
+.bigline {
+  background-size: 200% auto;
+  animation: gradientFlow 5s linear infinite;
+}
+
+@keyframes gradientFlow {
+  to { background-position: 200% center; }
+}
+
+/* Nút nhạc nhấp nháy nhẹ */
+#sound {
+  transition: transform .25s ease, box-shadow .25s ease;
+  animation: soundPulse 3s ease-in-out infinite;
+}
+
+#sound:active {
+  transform: scale(.88);
+}
+
+@keyframes soundPulse {
+  0%, 100% { box-shadow: 0 0 12px #a87cff33; }
+  50% { box-shadow: 0 0 24px #ff8acb88; }
+}
+
+/* Chuyển động mượt hơn trên điện thoại */
+@media (max-width: 600px) {
+  .section:hover, .memory:hover {
+    transform: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}
+
+/* Tôn trọng cài đặt giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .btn.primary, .big-heart, h1, h1 span,
+  .envelope, #sound, .bigline {
+    animation: none !important;
+  }
+
+  .section::before, .btn::after {
+    animation: none !important;
+  }
+}
+
+/* ===== END PREMIUM ANIMATION PACK ===== */
+
 #sound{position:fixed;right:14px;bottom:14px;z-index:8;border:1px solid #e5caff55;background:#1a0d30dd;color:white;border-radius:50%;width:45px;height:45px;box-shadow:0 0 20px #a87cff33}
 @media(min-width:650px){main{padding-top:35px}.section{padding:32px}.memories{grid-template-columns:repeat(4,minmax(0,1fr))}.memory{min-height:160px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
