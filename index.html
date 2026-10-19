@@ -666,9 +666,28 @@ let startX = 0;
 let startY = 0;
 
 function showPhoto(index) {
-  currentPhoto = (index + photoCards.length) % photoCards.length;
+  const oldPhoto = currentPhoto;
+
+  currentPhoto =
+    (index + photoCards.length) % photoCards.length;
+
+  const direction =
+    currentPhoto === oldPhoto
+      ? "slide-next"
+      : (
+          index > oldPhoto ||
+          (oldPhoto === photoCards.length - 1 && currentPhoto === 0)
+        )
+        ? "slide-next"
+        : "slide-prev";
+
+  viewerImage.classList.remove("slide-next", "slide-prev");
+
   viewerImage.src = photoCards[currentPhoto].src;
   viewerImage.alt = photoCards[currentPhoto].alt;
+
+  void viewerImage.offsetWidth;
+  viewerImage.classList.add(direction);
 }
 
 function closePhotoViewer() {
