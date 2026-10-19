@@ -63,8 +63,35 @@ footer strong{color:#ffb4dc}
 @keyframes floatUp{0%{transform:translateY(0) scale(.5) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh) scale(1.35) rotate(35deg);opacity:0}}
 .burst{position:fixed;z-index:6;pointer-events:none;font-size:18px;animation:burst 1.2s ease-out forwards}
 @keyframes burst{from{opacity:1;transform:translate(0,0) scale(.5)}to{opacity:0;transform:translate(var(--x),var(--y)) scale(1.5)}}
-.toast{position:fixed;z-index:10;bottom:20px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;background:#28133e;border:1px solid #ffb4df70;border-radius:999px;padding:12px 17px;font-size:12px;transition:.3s;pointer-events:none;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.toast{
+  position:fixed;
+  z-index:10;
+  bottom:calc(16px + env(safe-area-inset-bottom));
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  width:calc(100% - 28px);
+  max-width:520px;
+  max-height:30vh;
+  overflow-y:auto;
+  opacity:0;
+  background:#28133e;
+  border:1px solid #ffb4df70;
+  border-radius:18px;
+  padding:14px 17px;
+  font-size:15px;
+  line-height:1.6;
+  text-align:center;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  transition:.3s;
+  pointer-events:none;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
 #sound{position:fixed;right:14px;bottom:14px;z-index:8;border:1px solid #e5caff55;background:#1a0d30dd;color:white;border-radius:50%;width:45px;height:45px;box-shadow:0 0 20px #a87cff33}
 @media(min-width:650px){main{padding-top:35px}.section{padding:32px}.memories{grid-template-columns:repeat(4,minmax(0,1fr))}.memory{min-height:160px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
