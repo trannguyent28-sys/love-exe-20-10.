@@ -464,7 +464,36 @@ h1 span {
   font-size: 12px;
   text-align: center;
 }
+/* Hieu ung truot anh */
+.photo-viewer img.slide-next {
+  animation: slideNext .32s ease both;
+}
 
+.photo-viewer img.slide-prev {
+  animation: slidePrev .32s ease both;
+}
+
+@keyframes slideNext {
+  from {
+    opacity: 0;
+    transform: translateX(45px) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slidePrev {
+  from {
+    opacity: 0;
+    transform: translateX(-45px) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
 @media (min-width: 650px) {
   .photo-card {
     flex-basis: 35%;
