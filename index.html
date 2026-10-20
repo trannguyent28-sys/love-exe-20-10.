@@ -96,7 +96,13 @@ footer strong{color:#ffb4dc}
   transform:translate(-50%,35px) scale(.88);
   transition:opacity .35s ease,transform .45s cubic-bezier(.2,1.5,.5,1),visibility .35s;
 }
-
+/* Thong bao loi nhan ro rang hon */
+.toast{
+  font-size: 17px;
+  padding: 22px 20px;
+  max-height: 40vh;
+  border-radius: 22px;
+  }
 .toast.show{
   opacity:1;
   visibility:visible;
@@ -634,7 +640,22 @@ resize();draw();addEventListener("resize",resize);
 const emojis=["💗","💖","💕","✨","🌸","💫","🩷","✦","🌷"];
 function floaties(n=18){for(let i=0;i<n;i++){setTimeout(()=>{const e=document.createElement("div");e.className="floating";e.textContent=emojis[Math.floor(Math.random()*emojis.length)];e.style.left=(Math.random()*100)+"vw";e.style.bottom=(-10-Math.random()*30)+"px";e.style.fontSize=(14+Math.random()*25)+"px";e.style.animationDuration=(2.5+Math.random()*2.5)+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),5500)},i*55)}}
 function burst(x,y,n=18){for(let i=0;i<n;i++){const e=document.createElement("span");e.className="burst";e.textContent=emojis[Math.floor(Math.random()*emojis.length)];e.style.left=x+"px";e.style.top=y+"px";e.style.setProperty("--x",(Math.random()*260-130)+"px");e.style.setProperty("--y",(Math.random()*260-130)+"px");document.body.appendChild(e);setTimeout(()=>e.remove(),1300)}}
-function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400)}
+let toastTimer;
+
+function toast(t) {
+  const el = $("#toast");
+
+  el.textContent = t;
+  el.classList.remove("show");
+  void el.offsetWidth;
+  el.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(() => {
+    el.classList.remove("show");
+  }, 5000);
+}
 $("#heart").addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,28);toast("Trái tim đã nhận được một cái chạm 💗")});
 $("#spark").addEventListener("click",()=>{floaties(34);toast("Phép màu đã được gửi đi ✨")});
 $("#start").addEventListener("click",()=>{floaties(24);$("#system").scrollIntoView({behavior:"smooth"});$("#typing").textContent="> surprise_protocol = activated ♥";setTimeout(()=>toast("Kết nối thành công: Thanh Nguyen → Zii"),900)});
