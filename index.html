@@ -53,7 +53,25 @@ p{line-height:1.8;color:#e6dbf4;font-size:14px}
 .envelope{width:150px;height:105px;margin:22px auto 18px;position:relative;border:1px solid #ffc5e5a0;border-radius:10px;background:linear-gradient(135deg,#ff9bce,#ad83ff);box-shadow:0 0 35px #ff6eb733;display:grid;place-items:center;font-size:39px;transition:.4s}
 .envelope:before{content:"";position:absolute;top:-1px;left:0;right:0;margin:auto;width:0;height:0;border-left:74px solid transparent;border-right:74px solid transparent;border-top:55px solid #ffe0f1;filter:drop-shadow(0 2px 1px #b46ba9)}
 .envelope.open{transform:translateY(-8px) rotate(-2deg);box-shadow:0 0 60px #ff6eb766}
-.letter{display:none;text-align:left;white-space:pre-line;border-radius:18px;padding:20px;background:#fff5fb;color:#492349;line-height:1.9;font-size:14px;box-shadow:0 15px 45px #0003}
+
+.letter {
+  display: none;
+  text-align: left;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  border-radius: 18px;
+  padding: 20px;
+  background: #fff5fb;
+  color: #492349;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: normal;
+  word-spacing: normal;
+  box-shadow: 0 15px 45px #0003;
+}
+
 .letter.show{display:block;animation:rise .7s ease both}@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 .wish{text-align:center;padding:20px 0 10px}
 .bigline{font-size:clamp(28px,8vw,48px);font-weight:900;line-height:1.1;letter-spacing:-.05em;background:linear-gradient(100deg,#fff,#ff9fd5,#c7a7ff);color:transparent;background-clip:text}
